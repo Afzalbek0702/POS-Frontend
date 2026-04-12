@@ -1,10 +1,19 @@
-import { Button } from '@/components/ui/button'
-import React from 'react'
+import { Route } from "react-router-dom";
+import React from "react";
+import { Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Layout from "./Layout";
 
 function App() {
-  return (
-    <div><Button variant='outline' >Hello World</Button> </div>
-  )
+	return (
+		<Routes>
+			<Route element={<Layout />}>
+				<Route path="/" element={<Home />} />
+				<Route path="/about" element={<About />} />
+			</Route>
+		</Routes>
+	);
 }
 
-export default App
+export default App;
