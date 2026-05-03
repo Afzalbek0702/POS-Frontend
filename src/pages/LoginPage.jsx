@@ -18,7 +18,6 @@ export default function LoginPage({ onLoginSuccess, onForgotPassword }) {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
-
     try {
       const data = await loginApi({ email, password });
       saveToken(data.token);
@@ -31,25 +30,23 @@ export default function LoginPage({ onLoginSuccess, onForgotPassword }) {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#1a1a1a] flex flex-col items-center justify-center px-4">
+    <div className="min-h-screen w-full bg-background flex flex-col items-center justify-center px-4">
       {/* Logo */}
-      <h1 className="text-4xl font-bold text-[#f9a8c9] tracking-widest uppercase mb-10 select-none">
+      <h1 className="text-4xl font-bold text-primary tracking-widest uppercase mb-10 select-none">
         COSYPOS
       </h1>
 
       {/* Card */}
-      <div className="w-full max-w-md bg-[#2a2a2a] rounded-2xl p-10 shadow-2xl">
-        <h2 className="text-3xl font-semibold text-white text-center mb-2">Login</h2>
-        <p className="text-sm text-gray-400 text-center mb-8">
+      <div className="w-full max-w-md bg-card text-card-foreground rounded-2xl p-10 shadow-2xl border border-border">
+        <h2 className="text-3xl font-semibold text-center mb-2">Login!</h2>
+        <p className="text-sm text-muted-foreground text-center mb-8">
           Please enter your credentials below to continue
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Email */}
           <div className="space-y-1.5">
-            <Label htmlFor="email" className="text-white text-sm">
-              Username
-            </Label>
+            <Label htmlFor="email">Username</Label>
             <Input
               id="email"
               type="text"
@@ -57,15 +54,13 @@ export default function LoginPage({ onLoginSuccess, onForgotPassword }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="bg-[#363636] border-transparent text-white placeholder:text-gray-500 focus-visible:ring-[#f9a8c9] focus-visible:ring-1 focus-visible:border-[#f9a8c9] h-12 rounded-lg"
+              className="h-12"
             />
           </div>
 
           {/* Password */}
           <div className="space-y-1.5">
-            <Label htmlFor="password" className="text-white text-sm">
-              Password
-            </Label>
+            <Label htmlFor="password">Password</Label>
             <div className="relative">
               <Input
                 id="password"
@@ -74,12 +69,12 @@ export default function LoginPage({ onLoginSuccess, onForgotPassword }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-[#363636] border-transparent text-white placeholder:text-gray-500 focus-visible:ring-[#f9a8c9] focus-visible:ring-1 focus-visible:border-[#f9a8c9] h-12 rounded-lg pr-11"
+                className="h-12 pr-11"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword((v) => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 hover:cursor-pointer transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 tabIndex={-1}
               >
                 {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
@@ -94,16 +89,15 @@ export default function LoginPage({ onLoginSuccess, onForgotPassword }) {
                 id="remember"
                 checked={rememberMe}
                 onCheckedChange={(v) => setRememberMe(!!v)}
-                className="border-gray-500 data-[state=checked]:bg-[#f9a8c9] data-[state=checked]:border-[#f9a8c9]"
               />
-              <Label htmlFor="remember" className="text-gray-300 text-sm cursor-pointer">
+              <Label htmlFor="remember" className="cursor-pointer font-normal">
                 Remember me
               </Label>
             </div>
             <button
               type="button"
               onClick={onForgotPassword}
-              className="text-sm text-[#f9a8c9] hover:underline"
+              className="text-sm text-primary hover:underline"
             >
               Forgot Password?
             </button>
@@ -111,15 +105,11 @@ export default function LoginPage({ onLoginSuccess, onForgotPassword }) {
 
           {/* Error */}
           {error && (
-            <p className="text-red-400 text-sm text-center">{error}</p>
+            <p className="text-destructive text-sm text-center">{error}</p>
           )}
 
           {/* Submit */}
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="w-full h-12 bg-[#f9a8c9] hover:bg-[#f783ac] text-black font-semibold rounded-xl text-base transition-colors disabled:opacity-60"
-          >
+          <Button type="submit" disabled={isLoading} className="w-full h-12 text-base">
             {isLoading ? "Logging in..." : "Login"}
           </Button>
         </form>

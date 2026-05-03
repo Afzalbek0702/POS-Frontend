@@ -1,24 +1,56 @@
-import { Route } from "react-router-dom";
-import React from "react";
-import { Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Layout from "./Layout";
 import LoginPage from "./pages/LoginPage";
+import { getToken } from "./services/authService";
+
+// Pages (uncomment as you build them)
+import Dashboard from "./pages/Dashboard";
+// import Menu from "./pages/Menu";
+// import Staff from "./pages/Staff";
+// import Inventory from "./pages/Inventory";
+// import Reports from "./pages/Reports";
+// import Orders from "./pages/Orders";
+// import Reservations from "./pages/Reservations";
+
+function ProtectedRoute({ children }) {
+  // joyiga qaytarib qoyaman Login iwlab ketgandan keyin. O'CHIR VORMENG!!
+  // return getToken() ? children : <Navigate to="/login" replace />;
+  return children;
+}
 
 function App() {
-	return (
-		<Routes>
+  const navigate = useNavigate();
 
-			<Route element={<LoginPage />} path="/login">
-			</Route>
+  return (
+    <Routes>
+      {/* Standalone — no sidebar */}
+      <Route
+        path="/login"
+        element={<LoginPage onLoginSuccess={() => navigate("/")} />}
+      />
 
-			<Route element={<Layout />}>
-				<Route path="/" element={<Home />} />
-				<Route path="/about" element={<About />} />
-			</Route>
-		</Routes>
-	);
+      {/* Protected — with sidebar layout */}
+      <Route
+        element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/" element={<Dashboard />} />
+        {/* Uncomment as pages are built: */}
+        {/* <Route path="/menu" element={<Menu />} /> */}
+        {/* <Route path="/staff" element={<Staff />} /> */}
+        {/* <Route path="/inventory" element={<Inventory />} /> */}
+        {/* <Route path="/reports" element={<Reports />} /> */}
+        {/* <Route path="/orders" element={<Orders />} /> */}
+        {/* <Route path="/reservations" element={<Reservations />} /> */}
+      </Route>
+
+      {/* Fallback */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
 }
 
 export default App;
