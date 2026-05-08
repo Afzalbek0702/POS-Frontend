@@ -5,7 +5,7 @@ import { getToken } from "./services/authService";
 
 // Pages (uncomment as you build them)
 import Dashboard from "./pages/Dashboard";
-// import Menu from "./pages/Menu";
+import Menu from "./pages/Menu";
 // import Staff from "./pages/Staff";
 // import Inventory from "./pages/Inventory";
 // import Reports from "./pages/Reports";
@@ -38,8 +38,8 @@ function App() {
         }
       >
         <Route path="/" element={<Dashboard />} />
-        {/* Uncomment as pages are built: */}
-        {/* <Route path="/menu" element={<Menu />} /> */}
+        {/* biritilgandan keyin hammasi kommentdan ciqadi: */}
+        <Route path="/menu" element={<Menu />} />
         {/* <Route path="/staff" element={<Staff />} /> */}
         {/* <Route path="/inventory" element={<Inventory />} /> */}
         {/* <Route path="/reports" element={<Reports />} /> */}
